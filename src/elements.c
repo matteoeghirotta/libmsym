@@ -10,6 +10,7 @@
 
 #include <string.h>
 #include <math.h>
+#include <stdlib.h>
 
 #include "elements.h"
 
@@ -142,6 +143,16 @@ const struct _periodic_table {
     { 118, "Uuo", 293 }
 };
 
+char *
+normalize_name(char *label)
+{
+  char const *num = "0123456789";
+  char *label_cpy = strdup(label);
+  char *delim = strsep(&label_cpy, num);
+  /* free(label_cpy); */
+  return delim;
+}
+
 void printElement(msym_element_t *element){
     clean_debug_printf("%s (nuclear charge:%d, mass:%lf) [%lf;%lf;%lf]\n",element->name, element->n, element->m, element->v[0], element->v[1], element->v[2]);
 }
@@ -181,8 +192,12 @@ msym_error_t complementElementData(msym_element_t *element){
         
         for(fi = 0; fi < fil;fi++){
             int stre = 0;
-            for(int i = 0;i < sizeof(element->name) && i < sizeof(periodic_table[fi].name);i++){
-                char ec = element->name[i], ep = periodic_table[fi].name[i];
+
+            char * name = normalize_name(element->name);
+            printf("NAME %s for %s\n", name, element->name);
+
+            for(int i = 0;i < sizeof(name) && i < sizeof(periodic_table[fi].name);i++){
+                char ec = name[i], ep = periodic_table[fi].name[i];
                 char cmp[2] = {
                     ec >= 'A' && ec <= 'Z' ? ec | 0x60 : ec,
                     ep >= 'A' && ep <= 'Z' ? ep | 0x60 : ep
