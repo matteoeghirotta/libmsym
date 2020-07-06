@@ -4,7 +4,7 @@ cmake_minimum_required (VERSION 2.8.11)
 
 project(libmsym)
 
-option(MSYM_BUILD_EXAMPLES "Build example executables" OFF)
+option(MSYM_BUILD_EXAMPLES "Build example executables" ON)
 option(MSYM_BUILD_PYTHON "Build python binding" OFF)
 
 include (GenerateExportHeader)
