@@ -194,7 +194,7 @@ msym_error_t complementElementData(msym_element_t *element){
             int stre = 0;
 
             char * name = normalize_name(element->name);
-            printf("NAME %s for %s\n", name, element->name);
+            /* printf("NAME %s for %s\n", name, element->name); */
 
             for(int i = 0;i < sizeof(name) && i < sizeof(periodic_table[fi].name);i++){
                 char ec = name[i], ep = periodic_table[fi].name[i];
